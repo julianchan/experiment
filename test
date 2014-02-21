@@ -1,0 +1,158 @@
+<HTML>
+<HEAD><TITLE>experiment</TITLE>
+ <meta charset="utf-8" />
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+<script>
+
+var randnum;
+
+var the_time;
+
+var starttime;
+
+var the_stop_time;
+
+var stoptime;
+
+var responsetime;
+
+var total=0;
+
+var counter=0;
+
+var average;
+
+var today;
+
+var today2;
+
+reactTime=new Array();
+
+
+
+function addTime(){
+	var allReactTime = document.getElementById("clear");
+	allReactTime.innerHTML=reactTime;
+	}
+function randNum(num){
+	return Math.floor(Math.random() * num) +1;
+}	//产生随机数
+
+responseTime = function(){
+	responsetime=(stoptime-starttime)/1000;
+	}
+	
+changeToRed = function() {
+a = document.getElementById("1");
+a.style.color = "red";
+}
+
+changeToBlack = function(){
+a = document.getElementById("1");
+a.style.color = "black";
+}
+
+showForm = function(){
+document.getElementById("clear").style.display ="table";
+}	
+
+function startTime(){
+	randnum=randNum(5);
+	randmillis=randnum*1000;
+	window.setTimeout("writeTime();",randmillis);
+	}
+
+function writeTime() {
+	var today=new Date();
+	starttime=today.getTime();
+	changeToRed();
+	}
+	
+function storeTime(event) {
+if(event.ctrlKey==1 && a.style.color == "red"){
+	var today2=new Date();
+	stoptime=today2.getTime();
+	counter=counter + 1;
+	startTime();
+	changeToBlack();
+	responseTime();
+	reactTime[counter-1]=responsetime;
+	addTime();
+	}
+	}
+function check(link) {
+if (link.className != "visited") {
+       link.className = "visited";
+       return true;        
+    } 
+            alert("你已经看过了");
+			return false;
+			
+}
+
+$(document).ready(function(){
+  $("#a1").click(function(){
+    $("#content").load("/demo_test.txt #p1");
+  });
+});
+$(document).ready(function(){
+  $("#a2").click(function(){
+    $("#content").load("/demo_test.txt #p2");
+  });
+});
+$(document).ready(function(){
+  $("#a3").click(function(){
+    $("#content").load("/demo_test.txt #p3");
+  });
+});
+$(document).ready(function(){
+  $("#a4").click(function(){
+    $("#content").load("/demo_test.txt #p4");
+  });
+});
+
+
+  </script>
+</head>
+  <style type="text/css">
+ .visited
+ {
+   text-decoration:line-through;
+ }
+ #nav {
+ float:left;
+ width: 10%;
+ border:black solid thin;
+ }
+ #content {
+ float: right;
+ width: 88%;
+ }
+ #clear {
+  clear: both;
+  }
+</style>
+
+<body onkeydown="storeTime(event)" >
+<h1 id="1" align="center" style="color:black;font-size:80px; margin:0.05in;">A</h1>
+<input type="button" value="Start" onclick="startTime()">
+<input type="button" value="show" onclick="showForm()">
+<hr>
+<div id = "nav" >
+<ul>
+<li ><a id = "a1"  onclick="return check(this);" href="#">Link one</a></li>
+<li><a id = "a2"  onclick="return check(this);" href="#">Link two</a></li>
+<li><a id = "a3"  onclick="return check(this);" href="#">Link three</a></li>
+<li><a id = "a4"  onclick="return check(this);" href="#">Link four</a></li>
+</ul>
+</div>
+<div id="content">
+<h2>使用 jQuery AJAX 来改变文本</h2></div>
+
+
+<div  id = "clear" style="display:none;">testing<div/>
+
+
+
+</body>
+</html>
